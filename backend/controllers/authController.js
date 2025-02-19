@@ -60,7 +60,7 @@ const loginUser = async (req, res) => {
         //check if user exists
         let user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: "User does not exist" });
+            return res.status(400).json({ message: "User not found , sign up!" });
         }
 
         //check password
@@ -70,8 +70,7 @@ const loginUser = async (req, res) => {
         }
          
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
-        res.header('auth-token', token).json({token});
-        res.status(200).json({message: "Login successful"});
+        res.header('auth-token', token).json({token,message:"login Successfully"});
 
     } catch (error) {
         console.log(error);
