@@ -33,7 +33,7 @@ const updateTask = async (req, res) => {
             task.title = req.body.title || task.title;
             task.description = req.body.description || task.description;
             task.dueDate = req.body.dueDate || task.dueDate;
-            task.status = req.body.status || task.status;
+            // task.status = req.body.status || task.status;
             const updatedTask = await task.save();
             res.status(200).json({ message: "Task updated successfully", task: updatedTask });
         } else {
@@ -55,6 +55,8 @@ const updateTask = async (req, res) => {
             if(task.assignedTo.toString() !== req.user._id.toString()){
                 return res.status(401).json({ message: "You are not authorized to delete this task" });
             }
+            await Task.deleteOne({ _id: req.params.id });
+            res.status(200).json({ message: "Task deleted successfully" });
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: "Server Error" });
