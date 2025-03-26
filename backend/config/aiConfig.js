@@ -1,8 +1,10 @@
-const AI_CONFIG = {
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-    DEFAULT_MODEL: "gpt-4",
-    MAX_TOKENS: 200,
-  };
-  
-  export default AI_CONFIG;
-  
+const OpenAI = require('openai');
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+module.exports = openai;

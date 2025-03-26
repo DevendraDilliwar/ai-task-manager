@@ -2,6 +2,7 @@ const express = require("express");
 const connectDb = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors"); 
+const nodemailer = require("nodemailer");
 const errorHandler = require("./middleware/errorMiddleware");  
 
 dotenv.config();
@@ -9,6 +10,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+
 
 // Connect to database
 connectDb();
@@ -25,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/tasks", require("./routes/taskRoutes"));
+app.use("/api/ai",require('./routes/aiRoutes'))
 
 
 
